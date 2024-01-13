@@ -33,3 +33,26 @@ samples, guidance on mobile development, and a full API reference.
 - Tener instalado Android Studio y sdk de Android
 - En la computadora, ejecutar `adb pair <ip>:<puerto>`, ingresar código
 - Ejecutar la app con `flutter run`
+
+## Implementación de características
+
+- [Autenticación con firebase](https://firebase.google.com/docs/auth/flutter/start?hl=es): 
+  - **IMPORTANTE**: Activar la autenticación con Google en la consola de firebase
+  - **IMPORTANTE**: Agregar la "huella digital" (hash SHA) a la app de android en la consola de firebase
+
+## Obtener SHA de firma de app
+
+### En Mac
+  - Con terminal: `keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android`
+
+### En windows
+  - Con CMD: `keytool -list -v -keystore %USERPROFILE%/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android`
+  - Con PowerShell: `.\keytool -list -v -keystore $env:USERPROFILE/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android`
+
+### Donde encontrar el programa de keytool en Windows
+  Posibles ubicaciones:
+
+  - C:\Program Files\Android\Android Studio\jbr\bin
+  - C:\Program Files\Android\Android Studio\jre\bin
+  - C:\Program Files\Java\jdk-19\bin
+  - C:\Program Files\Java\jdk-VERSION\bin

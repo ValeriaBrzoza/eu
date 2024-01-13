@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -52,7 +53,9 @@ class LoginButton extends StatelessWidget {
           'assets/google_logo.png',
           width: 30,
         ),
-        onPressed: () {},
+        onPressed: () {
+          FirebaseAuth.instance.signInWithProvider(GoogleAuthProvider());
+        },
         label: const Text("Iniciar sesión con Google"),
       ),
     );
