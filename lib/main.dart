@@ -1,5 +1,7 @@
 import 'package:eu/firebase_options.dart';
+import 'package:eu/screens/listas.dart';
 import 'package:eu/services/appauth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -36,11 +38,11 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF8C00CE)),
         useMaterial3: true,
       ),
       home: const AppAuthWrapper(
-        home: MyHomePage(title: 'Flutter Demo Home Page'),
+        home: PantallaListasDeTareas(),
       ),
     );
   }
@@ -65,17 +67,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  void _logout() {
+    FirebaseAuth.instance.signOut();
   }
 
   @override
@@ -119,16 +112,16 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter',
+              '0',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _logout,
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        label: const Text("Salir"),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

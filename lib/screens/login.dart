@@ -7,8 +7,10 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: theme.primaryColor,
       body: Stack(
         children: [
           Positioned(
@@ -37,7 +39,15 @@ class EULogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text("EU"),
+      child: Text(
+        "Eu!",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 80,
+          fontFamily: 'Jua',
+          fontWeight: FontWeight.w500,
+        ),
+      ),
     );
   }
 }
@@ -51,12 +61,21 @@ class LoginButton extends StatelessWidget {
       child: ElevatedButton.icon(
         icon: Image.asset(
           'assets/google_logo.png',
-          width: 30,
+          width: 45,
         ),
         onPressed: () {
           FirebaseAuth.instance.signInWithProvider(GoogleAuthProvider());
         },
-        label: const Text("Iniciar sesión con Google"),
+        label: const Padding(
+          padding: EdgeInsets.symmetric(vertical: 16),
+          child: Text(
+            "Iniciar sesión con Google",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
       ),
     );
   }
