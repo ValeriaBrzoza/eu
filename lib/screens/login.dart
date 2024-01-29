@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+//pantalla si no hay un inicio de sesion
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
@@ -10,10 +12,12 @@ class LoginScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
+      //para que la screen sea pantalla completa
       backgroundColor: theme.primaryColor,
       body: Stack(
         children: [
           Positioned(
+            //logo de eu acomodado
             top: 0,
             left: 0,
             right: 0,
@@ -21,6 +25,7 @@ class LoginScreen extends StatelessWidget {
             child: const EULogo(),
           ),
           Positioned(
+            //boton de inicio de sesion acomodado
             top: size.height * 0.2,
             left: 0,
             right: 0,
@@ -34,6 +39,7 @@ class LoginScreen extends StatelessWidget {
 }
 
 class EULogo extends StatelessWidget {
+  //logo de eu
   const EULogo({super.key});
 
   @override
@@ -53,6 +59,7 @@ class EULogo extends StatelessWidget {
 }
 
 class LoginButton extends StatelessWidget {
+  //boton de inicio de sesion
   const LoginButton({super.key});
 
   @override
@@ -60,15 +67,18 @@ class LoginButton extends StatelessWidget {
     return Center(
       child: ElevatedButton.icon(
         icon: Image.asset(
+          //logo de google
           'assets/google_logo.png',
           width: 45,
         ),
         onPressed: () {
+          //el boton llama a firebase para iniciar sesion con google
           FirebaseAuth.instance.signInWithProvider(GoogleAuthProvider());
         },
         label: const Padding(
           padding: EdgeInsets.symmetric(vertical: 16),
           child: Text(
+            //texto del boton
             "Iniciar sesión con Google",
             style: TextStyle(
               fontSize: 16,

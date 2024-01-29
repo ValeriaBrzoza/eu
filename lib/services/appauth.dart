@@ -13,6 +13,7 @@ class AppAuthWrapper extends StatefulWidget {
 }
 
 class _AppAuthWrapperState extends State<AppAuthWrapper> {
+  //determina el estado de appauthwrapper
   late Stream<User?> stream;
 
   @override
