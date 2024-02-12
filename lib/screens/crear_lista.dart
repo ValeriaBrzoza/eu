@@ -10,6 +10,29 @@ class CrearLista extends StatefulWidget {
 }
 
 class _CrearListaState extends State<CrearLista> {
+  void crearLista() {}
+
+  String nombreLista = "";
+  bool requerirFechaMaxima = false;
+  DateTime? fechaMaximaGlobal;
+
+  void seleccionarFechaMaximaGlobal(bool value) {
+    if (value) {
+      showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2100),
+      ).then((value) {
+        if (value != null) {
+          setState(() => fechaMaximaGlobal = value);
+        }
+      });
+    } else {
+      setState(() => fechaMaximaGlobal = null);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return CartelCrear(
@@ -19,12 +42,12 @@ class _CrearListaState extends State<CrearLista> {
       ),
       bottom: Padding(
         // espacio para que el boton de crear no toque el borde
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: nombreLista == "" ? null : crearLista,
               child: const Text("Crear"),
             )
           ],
@@ -33,15 +56,36 @@ class _CrearListaState extends State<CrearLista> {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: TextFormField(
               // espacio para escribir el nombre de la lista
+              autofocus: true,
+              autocorrect: false,
+              onChanged: (value) => setState(() => nombreLista = value),
               decoration: const InputDecoration(
                 labelText: 'Nombre de la lista',
                 filled: true, // fondo con color
               ),
             ),
           ),
+          //switch para requerir fecha maxima para cada tarea
+          SwitchListTile(
+            value: requerirFechaMaxima,
+            onChanged: (value) => setState(() => requerirFechaMaxima = value),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+            title: const Text("Las tareas deben tener fecha máxima"),
+          ),
+          //switch para requerir fecha maxima global
+          SwitchListTile(
+              value: fechaMaximaGlobal != null,
+              onChanged: seleccionarFechaMaximaGlobal,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+              title: Text("Fecha máxima global"),
+              subtitle: fechaMaximaGlobal == null
+                  ? null
+                  : Text(
+                      "${fechaMaximaGlobal!.day}/${fechaMaximaGlobal!.month}/${fechaMaximaGlobal!.year}",
+                    )),
         ],
       ),
     );

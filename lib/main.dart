@@ -4,6 +4,7 @@ import 'package:eu/services/appauth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +31,14 @@ class MyApp extends StatelessWidget {
         //define si hay una sesion iniciada o no para determinar la pantalla que debe salir.
         home: PantallaListasDeTareas(), //la screen donde se ven las listas de tareas
       ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('es'), // Spanish
+      ],
     );
   }
 }
