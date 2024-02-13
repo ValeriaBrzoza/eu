@@ -47,7 +47,7 @@ class CartelCrear extends StatelessWidget {
         mainAxisSize: MainAxisSize.min, // para que no ocupe toda la pantalla si no es necesario
         children: [
           if (appBar != null)
-            Container(
+            SizedBox(
               // espacio para la appbar
               height: appBarHeight,
               child: appBar,
@@ -63,7 +63,7 @@ class CartelCrear extends StatelessWidget {
             ),
           ),
           if (bottom != null)
-            Container(
+            SizedBox(
               // espacio para el boton de abajo
               height: bottomHeight,
               child: bottom,

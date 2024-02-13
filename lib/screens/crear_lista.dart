@@ -1,4 +1,8 @@
+import 'package:eu/models/tasklist.dart';
+import 'package:eu/screens/lista_de_tareas.dart';
+import 'package:eu/services/data_provider.dart';
 import 'package:eu/widgets/cartel_crear.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' show showMaterialModalBottomSheet;
 
@@ -10,8 +14,6 @@ class CrearLista extends StatefulWidget {
 }
 
 class _CrearListaState extends State<CrearLista> {
-  void crearLista() {}
-
   String nombreLista = "";
   bool requerirFechaMaxima = false;
   DateTime? fechaMaximaGlobal;
@@ -33,11 +35,26 @@ class _CrearListaState extends State<CrearLista> {
     }
   }
 
+  Future<void> crearLista() async {
+    final lista = TaskList(
+      globalDeadline: fechaMaximaGlobal,
+      name: nombreLista,
+      tasksLimitDateRequired: requerirFechaMaxima,
+      usersIds: [FirebaseAuth.instance.currentUser!.uid],
+    );
+
+    await DataProvider.instance.crearLista(lista);
+
+    if (context.mounted) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ListaTareas(lista: lista)));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return CartelCrear(
       appBar: AppBar(
-        title: Text("Crear lista"),
+        title: const Text("Crear lista"),
         primary: false,
       ),
       bottom: Padding(
@@ -80,7 +97,7 @@ class _CrearListaState extends State<CrearLista> {
               value: fechaMaximaGlobal != null,
               onChanged: seleccionarFechaMaximaGlobal,
               contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-              title: Text("Fecha máxima global"),
+              title: const Text("Fecha máxima global"),
               subtitle: fechaMaximaGlobal == null
                   ? null
                   : Text(
@@ -97,7 +114,7 @@ void mostrarCrearLista(BuildContext context) {
     // espacio vacio que sale de abajo
     context: context,
     builder: (context) {
-      return CrearLista();
+      return const CrearLista();
     },
   );
 }
