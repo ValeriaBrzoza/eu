@@ -1,84 +1,90 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Task {
+class Tarea {
   final String? id;
-  final String title;
-  final DateTime? deadline;
-  final String? assignedUser;
-  final bool completed;
+  final String nombre;
+  final DateTime? fechaLimite;
+  final String? usuarioAsignado;
+  final bool completada;
   final String? completedBy;
 
-  const Task({
+  const Tarea({
     this.id,
-    required this.title,
-    required this.deadline,
-    required this.assignedUser,
-    this.completed = false,
+    required this.nombre,
+    required this.fechaLimite,
+    required this.usuarioAsignado,
+    this.completada = false,
     this.completedBy,
   });
 
   Map<String, dynamic> toJson() {
+    //convierte el objeto a un json
     return {
       'id': id,
-      'title': title,
-      'deadline': deadline,
-      'assigned_user': assignedUser,
-      'completed': completed,
+      'title': nombre,
+      'deadline': fechaLimite,
+      'assigned_user': usuarioAsignado,
+      'completed': completada,
       'completed_by': completedBy,
     };
   }
 
-  factory Task.fromJson(Map<String, dynamic> json, [String? id]) {
-    return Task(
+  factory Tarea.fromJson(Map<String, dynamic> json, [String? id]) {
+    //factory porque construye objetos Tarea, a partir de un json, por eso tiene el Tarea.
+    return Tarea(
       id: id,
-      title: json['title'],
-      deadline: (json['deadline'] as Timestamp?)?.toDate(),
-      assignedUser: json['assigned_user'],
-      completed: json['completed'],
+      nombre: json['nombre'],
+      fechaLimite: (json['dfechaLimite'] as Timestamp?)?.toDate(),
+      usuarioAsignado: json['usuarioAsignado'],
+      completada: json['completada'],
       completedBy: json['completed_by'],
     );
   }
 
-  Task copyWith({
+  Tarea copyWith({
+    //copia la tarea y le cambia los valores que se le pasen
     String? id,
-    String? title,
-    DateTime? deadline,
-    String? assignedUser,
-    bool? completed,
+    String? nombre,
+    DateTime? fechaLimite,
+    String? usuarioAsignado,
+    bool? completada,
     String? completedBy,
   }) {
-    return Task(
+    return Tarea(
       id: id ?? this.id,
-      title: title ?? this.title,
-      deadline: deadline ?? this.deadline,
-      assignedUser: assignedUser ?? this.assignedUser,
-      completed: completed ?? this.completed,
+      nombre: nombre ?? this.nombre,
+      fechaLimite: fechaLimite ?? this.fechaLimite,
+      usuarioAsignado: usuarioAsignado ?? this.usuarioAsignado,
+      completada: completada ?? this.completada,
       completedBy: completedBy ?? this.completedBy,
     );
   }
 
   @override
   String toString() {
-    return 'Task(title: $title, deadline: $deadline, assignedUser: $assignedUser, completed: $completed)';
+    //para el print
+    return 'Task(nombre: $nombre, fechaLimite: $fechaLimite, usuarioAsignado: $usuarioAsignado, completada: $completada)';
   }
 
   @override
   bool operator ==(Object other) {
+    //compara si dos tareas son iguales
     if (identical(this, other)) return true;
 
-    return other is Task &&
-        other.title == title &&
-        other.deadline == deadline &&
-        other.assignedUser == assignedUser &&
-        other.completed == completed;
+    return other is Tarea &&
+        other.nombre == nombre &&
+        other.fechaLimite == fechaLimite &&
+        other.usuarioAsignado == usuarioAsignado &&
+        other.completada == completada;
   }
 
   @override
   int get hashCode {
-    return title.hashCode ^ deadline.hashCode ^ assignedUser.hashCode ^ completed.hashCode;
+    return nombre.hashCode ^ fechaLimite.hashCode ^ usuarioAsignado.hashCode ^ completada.hashCode;
   }
 
   bool getCompleted() {
-    return completed;
+    //retorna si la tarea esta completada
+    return completada;
   }
 }

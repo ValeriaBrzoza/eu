@@ -7,7 +7,7 @@ class ListaTareas extends StatefulWidget {
     required this.lista,
   });
 
-  final TaskList lista;
+  final ListaDeTareas lista;
 
   @override
   State<ListaTareas> createState() => _ListaTareasState();
@@ -17,7 +17,7 @@ class _ListaTareasState extends State<ListaTareas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.lista.name)),
+      appBar: AppBar(title: Text(widget.lista.nombre)),
     );
   }
 }

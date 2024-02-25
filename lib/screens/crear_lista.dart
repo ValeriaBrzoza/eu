@@ -21,37 +21,24 @@ class _CrearListaState extends State<CrearLista> {
   void seleccionarFechaMaximaGlobal(bool value) {
     if (value) {
       showDatePicker(
+        //muestra el dialog con el calendario o para poner fecha
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime.now(),
-        lastDate: DateTime(2100),
+        lastDate: DateTime(2100), //fecha maxima que se puede poner
       ).then((value) {
         if (value != null) {
-          setState(() => fechaMaximaGlobal = value);
+          setState(() => fechaMaximaGlobal = value); //si se selecciono algo, se guarda en la variable
         }
       });
     } else {
-      setState(() => fechaMaximaGlobal = null);
-    }
-  }
-
-  Future<void> crearLista() async {
-    final lista = TaskList(
-      globalDeadline: fechaMaximaGlobal,
-      name: nombreLista,
-      tasksLimitDateRequired: requerirFechaMaxima,
-      usersIds: [FirebaseAuth.instance.currentUser!.uid],
-    );
-
-    await DataProvider.instance.crearLista(lista);
-
-    if (context.mounted) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ListaTareas(lista: lista)));
+      setState(() => fechaMaximaGlobal = null); //si no se selecciono nada
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    //constructor del widget
     return CartelCrear(
       appBar: AppBar(
         title: const Text("Crear lista"),
@@ -64,7 +51,7 @@ class _CrearListaState extends State<CrearLista> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ElevatedButton(
-              onPressed: nombreLista == "" ? null : crearLista,
+              onPressed: nombreLista == "" ? null : crearLista, //la lista debe tener nombre para poder crearse
               child: const Text("Crear"),
             )
           ],
@@ -78,7 +65,8 @@ class _CrearListaState extends State<CrearLista> {
               // espacio para escribir el nombre de la lista
               autofocus: true,
               autocorrect: false,
-              onChanged: (value) => setState(() => nombreLista = value),
+              onChanged: (value) =>
+                  setState(() => nombreLista = value), //cambia el nombre de la lista y reconstruye la vista
               decoration: const InputDecoration(
                 labelText: 'Nombre de la lista',
                 filled: true, // fondo con color
@@ -88,7 +76,8 @@ class _CrearListaState extends State<CrearLista> {
           //switch para requerir fecha maxima para cada tarea
           SwitchListTile(
             value: requerirFechaMaxima,
-            onChanged: (value) => setState(() => requerirFechaMaxima = value),
+            onChanged: (value) => setState(
+                () => requerirFechaMaxima = value), //cambia el valor de requerir fecha maxima y reconstruye la vista
             contentPadding: const EdgeInsets.symmetric(horizontal: 12),
             title: const Text("Las tareas deben tener fecha máxima"),
           ),
@@ -107,8 +96,25 @@ class _CrearListaState extends State<CrearLista> {
       ),
     );
   }
+
+  Future<void> crearLista() async {
+    //lo que pasa cuando le das al boton de crear, crea la lista
+    final lista = ListaDeTareas(
+      nombre: nombreLista,
+      tareasConFechaLimite: requerirFechaMaxima,
+      fechaLimite: fechaMaximaGlobal,
+      idsDeUsuarios: [FirebaseAuth.instance.currentUser!.uid],
+    );
+
+    await DataProvider.instance.crearLista(lista);
+
+    if (context.mounted) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ListaTareas(lista: lista)));
+    }
+  }
 }
 
+//esta es la screen, todo lo de arriba era el widget que conforma la screen
 void mostrarCrearLista(BuildContext context) {
   showMaterialModalBottomSheet(
     // espacio vacio que sale de abajo

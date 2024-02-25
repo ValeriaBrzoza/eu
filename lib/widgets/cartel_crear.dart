@@ -19,12 +19,11 @@ class CartelCrear extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    final height = MediaQuery.of(context).size.height; // altura de la pantalla
 
     final statusbarHeight = MediaQuery.of(context).padding.top;
 
     final heightConstraint = height - statusbarHeight;
-
     final keyBoardSize = MediaQuery.of(context).viewInsets.bottom;
 
     double contentHeight = heightConstraint - keyBoardSize; // contenido scrolleable
@@ -40,7 +39,7 @@ class CartelCrear extends StatelessWidget {
     return Container(
       // limita la altura del espacio vacio que sale de abajo
       constraints: BoxConstraints(
-        maxHeight: heightConstraint,
+        maxHeight: heightConstraint, //limita la altura del widget
       ),
       child: Column(
         // contenido del espacio vacio que sale de abajo

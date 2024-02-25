@@ -1,45 +1,47 @@
-class TaskList {
-  const TaskList({
+class ListaDeTareas {
+  const ListaDeTareas({
     this.id,
-    required this.name,
-    required this.usersIds,
-    required this.tasksLimitDateRequired,
-    required this.globalDeadline,
-    this.tasksQuantity = 0,
-    this.completedTasksQuantity = 0,
+    required this.nombre,
+    required this.idsDeUsuarios,
+    required this.tareasConFechaLimite,
+    required this.fechaLimite,
+    this.cantidadDeTareas = 0,
+    this.tareasCompletadas = 0,
   });
 
   final String? id;
-  final String name;
-  final List<String> usersIds;
-  final bool tasksLimitDateRequired;
-  final DateTime? globalDeadline;
-  final int tasksQuantity;
-  final int completedTasksQuantity;
+  final String nombre;
+  final List<String> idsDeUsuarios;
+  final bool tareasConFechaLimite;
+  final DateTime? fechaLimite;
+  final int cantidadDeTareas;
+  final int tareasCompletadas;
 
-  factory TaskList.fromJson(Map<String, dynamic> json, [String? id]) {
-    return TaskList(
+  factory ListaDeTareas.fromJson(Map<String, dynamic> json, [String? id]) {
+    //factory porque construye objeto Lista, por eso tiene el Lista.
+    return ListaDeTareas(
       id: id,
-      name: json['name'] as String,
-      usersIds: (json['users'] as List<dynamic>).map((e) => e.toString()).toList(),
-      tasksLimitDateRequired: json['task_limit_date_required'] as bool,
-      globalDeadline: json['global_deadline'] != null ? DateTime.parse(json['global_deadline'] as String) : null,
-      tasksQuantity: json['tasks_quantity'] as int? ?? 0,
-      completedTasksQuantity: json['completed_tasks_quantity'] as int? ?? 0,
+      nombre: json['nombre'] as String,
+      idsDeUsuarios: (json['usuarios'] as List<dynamic>).map((e) => e.toString()).toList(),
+      tareasConFechaLimite: json['tareas_con_fecha_limite'] as bool,
+      fechaLimite: json['fecha_limite'] != null ? DateTime.parse(json['global_deadline'] as String) : null,
+      cantidadDeTareas: json['cantidad_de_tareas'] as int? ?? 0,
+      tareasCompletadas: json['tareas_completadas'] as int? ?? 0,
     );
   }
 
   // Getter que dice si tiene o no deadline inferido de si es null o no
-  bool get hasDeadline => globalDeadline != null;
+  bool get hasDeadline => fechaLimite != null;
 
   Map<String, dynamic> toJson() {
+    //convierte la lista a un json
     return {
-      "name": name,
-      "users": usersIds,
-      "task_limit_date_required": tasksLimitDateRequired,
-      "global_deadline": globalDeadline?.toIso8601String(),
-      "tasks_quantity": tasksQuantity,
-      "completed_tasks_quantity": completedTasksQuantity,
+      "nombre": nombre,
+      "usuarios": idsDeUsuarios,
+      "tareas_con_fecha_limite": tareasConFechaLimite,
+      "fecha_limite": fechaLimite?.toIso8601String(),
+      "cantidad_de_tareas": cantidadDeTareas,
+      "tareas_completadas": tareasCompletadas,
       // Faltan las tareas
     };
   }

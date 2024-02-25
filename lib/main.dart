@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const AppAuthWrapper(
         //define si hay una sesion iniciada o no para determinar la pantalla que debe salir.
-        home: PantallaListasDeTareas(), //la screen donde se ven las listas de tareas
+        home: PantallaListasDeTareas(), //la screen donde se ven las listas de tareas, caso con sesion iniciada
       ),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
