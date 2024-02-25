@@ -73,7 +73,7 @@ class LoginButton extends StatelessWidget {
         ),
         onPressed: () {
           //el boton llama a firebase para iniciar sesion con google
-          FirebaseAuth.instance.signInWithProvider(GoogleAuthProvider());
+          FirebaseAuth.instance.signInWithRedirect(GoogleAuthProvider());
         },
         label: const Padding(
           padding: EdgeInsets.symmetric(vertical: 16),
