@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 //pantalla si no hay un inicio de sesion
@@ -73,7 +74,11 @@ class LoginButton extends StatelessWidget {
         ),
         onPressed: () {
           //el boton llama a firebase para iniciar sesion con google
-          FirebaseAuth.instance.signInWithRedirect(GoogleAuthProvider());
+          if (kIsWeb) {
+            FirebaseAuth.instance.signInWithRedirect(GoogleAuthProvider()); //redirect para web
+          } else {
+            FirebaseAuth.instance.signInWithProvider(GoogleAuthProvider()); //provider para mobile
+          }
         },
         label: const Padding(
           padding: EdgeInsets.symmetric(vertical: 16),
