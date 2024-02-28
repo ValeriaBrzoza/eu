@@ -1,5 +1,6 @@
 import 'package:eu/models/tasklist.dart';
 import 'package:flutter/material.dart';
+import 'package:eu/widgets/boton_crear_tarea.dart';
 
 class ListaTareas extends StatefulWidget {
   const ListaTareas({
@@ -18,6 +19,7 @@ class _ListaTareasState extends State<ListaTareas> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.lista.nombre)),
+      floatingActionButton: BotonCrearTarea(),
     );
   }
 }
