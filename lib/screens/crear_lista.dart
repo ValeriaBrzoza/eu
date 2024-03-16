@@ -25,7 +25,7 @@ class _CrearListaState extends State<CrearLista> {
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime.now(),
-        lastDate: DateTime(2100), //fecha maxima que se puede poner
+        lastDate: DateTime.now().add(const Duration(days: 365 * 100)), //fecha maxima que se puede poner
       ).then((value) {
         if (value != null) {
           setState(() => fechaMaximaGlobal = value); //si se selecciono algo, se guarda en la variable
@@ -97,7 +97,7 @@ class _CrearListaState extends State<CrearLista> {
     );
   }
 
-  Future<void> crearLista() async {
+  void crearLista() {
     //lo que pasa cuando le das al boton de crear, crea la lista
     final lista = ListaDeTareas(
       nombre: nombreLista,
@@ -106,7 +106,7 @@ class _CrearListaState extends State<CrearLista> {
       idsDeUsuarios: [FirebaseAuth.instance.currentUser!.uid],
     );
 
-    await DataProvider.instance.crearLista(lista);
+    DataProvider.instance.crearLista(lista);
 
     if (context.mounted) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ListaTareas(lista: lista)));
@@ -117,7 +117,7 @@ class _CrearListaState extends State<CrearLista> {
 //esta es la screen, todo lo de arriba era el widget que conforma la screen
 void mostrarCrearLista(BuildContext context) {
   showMaterialModalBottomSheet(
-    // espacio vacio que sale de abajo
+    // espacio vacío que sale de abajo
     context: context,
     builder: (context) {
       return const CrearLista();
