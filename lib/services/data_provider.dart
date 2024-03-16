@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eu/models/tasklist.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class DataProvider {
   Future<ListaDeTareas> crearLista(ListaDeTareas lista) async {

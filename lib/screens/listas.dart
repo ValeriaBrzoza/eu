@@ -103,7 +103,7 @@ class ListasDeTareas extends StatelessWidget {
                   // Cada Lista de tareas es un ListTile
                   title: Text(list.nombre),
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ListaTareas(lista: list)));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => VistaListaTareas(lista: list)));
                   },
                 ),
               )

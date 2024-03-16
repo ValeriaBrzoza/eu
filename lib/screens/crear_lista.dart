@@ -83,15 +83,16 @@ class _CrearListaState extends State<CrearLista> {
           ),
           //switch para requerir fecha maxima global
           SwitchListTile(
-              value: fechaMaximaGlobal != null,
-              onChanged: seleccionarFechaMaximaGlobal,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-              title: const Text("Fecha máxima global"),
-              subtitle: fechaMaximaGlobal == null
-                  ? null
-                  : Text(
-                      "${fechaMaximaGlobal!.day}/${fechaMaximaGlobal!.month}/${fechaMaximaGlobal!.year}",
-                    )),
+            value: fechaMaximaGlobal != null,
+            onChanged: seleccionarFechaMaximaGlobal,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+            title: const Text("Fecha máxima global"),
+            subtitle: fechaMaximaGlobal == null
+                ? null
+                : Text(
+                    "${fechaMaximaGlobal!.day}/${fechaMaximaGlobal!.month}/${fechaMaximaGlobal!.year}",
+                  ),
+          ),
         ],
       ),
     );
@@ -109,7 +110,7 @@ class _CrearListaState extends State<CrearLista> {
     DataProvider.instance.crearLista(lista);
 
     if (context.mounted) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ListaTareas(lista: lista)));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => VistaListaTareas(lista: lista)));
     }
   }
 }

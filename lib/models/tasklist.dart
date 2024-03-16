@@ -24,7 +24,7 @@ class ListaDeTareas {
       nombre: json['nombre'] as String,
       idsDeUsuarios: (json['usuarios'] as List<dynamic>).map((e) => e.toString()).toList(),
       tareasConFechaLimite: json['tareas_con_fecha_limite'] as bool,
-      fechaLimite: json['fecha_limite'] != null ? DateTime.parse(json['global_deadline'] as String) : null,
+      fechaLimite: json['fecha_limite'] != null ? DateTime.parse(json['fecha_limite'] as String) : null,
       cantidadDeTareas: json['cantidad_de_tareas'] as int? ?? 0,
       tareasCompletadas: json['tareas_completadas'] as int? ?? 0,
     );

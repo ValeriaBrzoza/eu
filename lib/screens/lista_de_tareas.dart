@@ -2,8 +2,8 @@ import 'package:eu/models/tasklist.dart';
 import 'package:flutter/material.dart';
 import 'package:eu/widgets/boton_crear_tarea.dart';
 
-class ListaTareas extends StatefulWidget {
-  const ListaTareas({
+class VistaListaTareas extends StatefulWidget {
+  const VistaListaTareas({
     super.key,
     required this.lista,
   });
@@ -11,15 +11,19 @@ class ListaTareas extends StatefulWidget {
   final ListaDeTareas lista;
 
   @override
-  State<ListaTareas> createState() => _ListaTareasState();
+  State<VistaListaTareas> createState() => _VistaListaTareasState();
 }
 
-class _ListaTareasState extends State<ListaTareas> {
+class _VistaListaTareasState extends State<VistaListaTareas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.lista.nombre)),
-      floatingActionButton: BotonCrearTarea(),
+      appBar: AppBar(
+        title: Text(widget.lista.nombre),
+      ), // widget es la instancia de ListaTareas y el lista es la lista de la instancia
+      floatingActionButton: BotonCrearTarea(
+        lista: widget.lista,
+      ),
     );
   }
 }
